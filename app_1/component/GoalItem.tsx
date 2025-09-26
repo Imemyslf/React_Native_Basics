@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import DATA from "../module/goalItemModule";
+import DATA from "../../types/goalItemModule";
 
 interface InputType {
   data: DATA;
