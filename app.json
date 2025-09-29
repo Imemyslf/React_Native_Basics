@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "rncourse",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,    
+    "newArchEnabled": true,
     "backgroundColor": "#311b6b",
     "ios": {
       "supportsTablet": true
@@ -39,7 +39,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,
