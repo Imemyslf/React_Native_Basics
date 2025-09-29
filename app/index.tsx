@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { Dimensions, ImageBackground, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Colors from "./constants/color";
@@ -8,16 +8,26 @@ import GameOverScreen from "./screens/GameOver";
 import GameScreen from "./screens/GameScreen";
 import StartGameScreen from "./screens/StartGameScreen";
 
+const deviceWidth: number = Dimensions.get("window").width;
+
 export default function Index() {
-  const [userNos, setUserNos] = useState<number>();
-  const [gameIsOver, setGameISOver] = useState<boolean>(false);
+  const [userNos, setUserNos] = useState<number | null>(null);
+  const [gameIsOver, setGameIsOver] = useState<boolean>(false);
+  const [guessRounds, setGuessRound] = useState<number>(0);
 
   const pickedNumberHandler = (pickedNumber: number) => {
     setUserNos(pickedNumber);
   };
 
-  const gameOver = () => {
-    setGameISOver(true);
+  const gameOver = (guessRounds: number) => {
+    setGuessRound(guessRounds);
+    setGameIsOver(true);
+  };
+
+  const startNewGameHandler = () => {
+    setUserNos(null);
+    setGuessRound(0);
+    setGameIsOver(false);
   };
 
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />;
@@ -27,8 +37,15 @@ export default function Index() {
   }
 
   if (gameIsOver && userNos) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        userNumber={userNos}
+        roundsNumber={guessRounds}
+        onGameStart={startNewGameHandler}
+      />
+    );
   }
+
   return (
     <>
       <LinearGradient
